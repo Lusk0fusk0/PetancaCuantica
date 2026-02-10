@@ -125,14 +125,33 @@ public partial class MedidorFuerza : Node2D
 	{
 		if (Pelota == null) return;
 
+		// 1. IMPORTANTE: Suscribirse al evento de "dormido" 
+		// Usamos un delegado para que solo ocurra una vez
+		Pelota.SleepingStateChanged += AlDetenerseLaPelota;
+
 		float anguloFinal = FlechaPivote.Rotation + Mathf.DegToRad(GradosCorreccion);
-
 		Vector2 direccion = Vector2.Right.Rotated(anguloFinal);
-
 		float fuerzaFinal = (float)BarraVisual.Value * MultiplicadorFuerza;
-		Pelota.ApplyImpulse(direccion * fuerzaFinal);
 
+		Pelota.ApplyImpulse(direccion * fuerzaFinal);
+		
 		GD.Print($"Lanzado con corrección de {GradosCorreccion} grados.");
+	}
+
+	// Esta función se activará sola cuando la pelota se quede quieta
+	private void AlDetenerseLaPelota()
+	{
+		// Solo nos interesa si Sleeping es TRUE (se ha dormido)
+		if (Pelota.Sleeping)
+		{
+			GD.Print($"¡La pelota se ha detenido! Posición final: {Pelota.GlobalPosition}");
+
+			// Desconectamos para que no se repita el mensaje si la chocamos luego
+			Pelota.SleepingStateChanged -= AlDetenerseLaPelota;
+
+			// Aquí podrías avisar al GameMaster para que reinicie el turno
+			ReiniciarJuego();
+		}
 	}
 
 	public void ReiniciarJuego()
