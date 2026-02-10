@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cncb1xybfwuw1"]
+[gd_scene load_steps=10 format=3 uid="uid://cncb1xybfwuw1"]
 
 [ext_resource type="Script" uid="uid://cb06ru1i6p47i" path="res://src/ControladorFlecha.cs" id="1_avh0g"]
 [ext_resource type="Texture2D" uid="uid://bucan8vfyw8mp" path="res://Imagen/ImagenFlecha.png" id="2_4dlvo"]
 [ext_resource type="Script" uid="uid://cqyvnu6sfwyb" path="res://src/MedidorFuerza.cs" id="4_r22ry"]
 [ext_resource type="Texture2D" uid="uid://gj2h36or5xyp" path="res://Imagen/BolaPetancaCuantica.png" id="4_riga8"]
+[ext_resource type="PackedScene" uid="uid://dgt2ic05jnfw7" path="res://pause_menu.tscn" id="5_riga8"]
 
 [sub_resource type="Gradient" id="Gradient_avh0g"]
 offsets = PackedFloat32Array(0, 0.61013216, 0.6431718)
@@ -72,3 +73,10 @@ texture = ExtResource("4_riga8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/PelotaRigiBody"]
 scale = Vector2(0.2, 0.2)
+
+[node name="PauseMenu" parent="." instance=ExtResource("5_riga8")]
+visible = false
+offset_left = -578.0
+offset_top = -564.0
+offset_right = -578.0
+offset_bottom = -564.0
